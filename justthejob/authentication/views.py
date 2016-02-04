@@ -5,10 +5,10 @@ from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from chatbot.views import *
+from chatbot.views import personalinfo
 from django.shortcuts import redirect
 @csrf_exempt
-def auth(request):
+def login_user(request):
     if(request.POST):
         data=request.POST
         username=data['username']
