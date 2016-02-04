@@ -3,8 +3,16 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script>
+        function init()
+        {
+            {% if error %}
+                alert("Incorrect password. Please enter again");
+            {% endif %}
+        }
+    </script>
 </head>
-<body>
+<body onload="init()">
     <form action="" method="post">
 		{% if next %}
 		<input type="hidden" name="next" value="{{ next }}" />

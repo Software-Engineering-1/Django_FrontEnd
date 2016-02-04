@@ -14,11 +14,16 @@ def auth(request):
         username=data['username']
         password=data['password']
         user=authenticate(username=username,password=password)
-        login(request,user)
-        return redirect(personalinfo)
+        if(user is not None):
+            login(request,user)
+            return redirect(personalinfo)
+        else:
+            template = loader.get_template('authentication/index.html')
+            context={'error':1}
+            return HttpResponse(template.render(context,request))
     else:
         template = loader.get_template('authentication/index.html')
-        context={}
+        context={'error':0}
         return HttpResponse(template.render(context,request))
 
 @csrf_exempt
