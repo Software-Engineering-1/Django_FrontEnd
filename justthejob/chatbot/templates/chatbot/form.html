@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>yolo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="jquery-1.12.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<title>yolo</title>
+</head>
+<script type="text/javascript">
+	function showform(){
+		var form = document.getElementById("expform");
+		form.style.visibility = "visible";
+	}
+	function showform1(){
+		var form = document.getElementById("eduform");
+		form.style.visibility = "visible";
+	}
+	function showform2(){
+		var form = document.getElementById("projform");
+		form.style.visibility = "visible";
+	}
+	function saveexp(){
+		//console.log('hello');
+		var s = document.getElementById("start");
+		var startmonth = s.options[s.selectedIndex].value;
+		var startyear = document.getElementById("startyear").value;
+		var e = document.getElementById("end");
+		var endmonth = e.options[e.selectedIndex].value;
+		var endyear = document.getElementById("endyear").value;
+		var cname = document.getElementById("cname").value;
+		var title = document.getElementById("title").value;
+		var description = document.getElementById("description").value;
+		console.log(Number(startyear));
+		if(Number(startyear)>Number(endyear)){
+			alert("invalid years, plis fill again :)");
+		}
+		else{
+			alert(cname+"\n"+title+"\n"+description+"\n"+startmonth+startyear+endmonth+endyear);
+
+			document.getElementById("title").value = "";
+			document.getElementById("description").value = "";
+			document.getElementById("cname").value = "";
+			var form = document.getElementById("expform");
+			form.style.visibility = "hidden";
+		}
+	}
+	function cancelexp(){
+		var form = document.getElementById("expform");
+		document.getElementById("title").value = "";
+		document.getElementById("description").value = "";
+		document.getElementById("cname").value = "";
+		form.style.visibility = "hidden";	
+	}
+	function saveexp1(){
+		var school = document.getElementById("sname").value;
+		var startyear = document.getElementById("startyear1").value;
+		var endyear = document.getElementById("endyear1").value;
+		var d =document.getElementById("degree");
+		var degree = d.options[d.selectedIndex].value;
+		var fos = document.getElementById("fos").value
+		var grade = document.getElementById("grade").value;
+		if(Number(startyear)>Number(endyear)){
+			alert("invalid years, plis fill again :)");
+		}
+		else{
+			alert(school+startyear+endyear+degree+fos+grade);
+		}
+		var form = document.getElementById("eduform");
+		document.getElementById("sname").value = "";
+		document.getElementById("startyear1").value = "";
+		document.getElementById("endyear1").value = "";
+		document.getElementById("fos").value = "";
+		document.getElementById("grade").value = "";
+		form.style.visibility = "hidden";
+	}
+	function cancelexp1(){
+		var form = document.getElementById("eduform");
+		document.getElementById("sname").value = "";
+		document.getElementById("startyear1").value = "";
+		document.getElementById("endyear1").value = "";
+		document.getElementById("fos").value = "";
+		document.getElementById("grade").value = "";
+		form.style.visibility = "hidden";
+	}
+	function saveexp2(){
+		var form = document.getElementById("projform");
+		var projname = document.getElementById("pname").value;
+		var m = document.getElementById("month");
+		var month = m.options[m.selectedIndex].value;
+		var year = document.getElementById("year").value;
+		var projurl = document.getElementById("purl").value;
+		var description = document.getElementById("pdesc").value;
+		alert(projname+month+year+projurl+description);
+		document.getElementById("pname").value = "";
+		document.getElementById("year").value = "";
+		document.getElementById("purl").value = "";
+		document.getElementById("pdesc").value = "";
+		form.style.visibility = "hidden";
+	}
+	function cancelexp2(){
+		var form = document.getElementById("projform");
+		document.getElementById("pname").value = "";
+		document.getElementById("year").value = "";
+		document.getElementById("purl").value = "";
+		document.getElementById("pdesc").value = "";
+		form.style.visibility = "hidden";
+	}
+</script>
+<body>
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-sm-2" style="background-color:lavender;"><h3>Experience</h3></div>
+	    <div class="col-sm-1" style="background-color:lavenderblush;"></div>
+	    <button type="button" class="btn btn-primary" onclick = "showform();">Add Position</button>
+	</div>
+	<div id = "expform" style = "visibility:hidden">
+		<form role="form">
+			<div class="form-group">
+	      		<label for="cname">Company Name</label>
+	      		<input type="text" class="form-control" id="cname">
+   		 	</div>
+    		<div class="form-group">
+      			<label for="title">Title</label>
+      			<input type="text" class="form-control" id="title">
+    		</div>
+    		<div class="form-group">
+      			<label for="TimePeriod">Time Period</label>
+      			<br>
+      			<select id="start">
+      				<option value = "Jan">January</option>
+      				<option value = "Feb">February</option>
+      				<option value = "Mar">March</option>
+      				<option value = "Apr">April</option>
+      				<option value = "May">May</option>
+      				<option value = "Jun">June</option>
+      				<option value = "Jul">July</option>
+      				<option value = "Aug">August</option>
+      				<option value = "Sep">September</option>
+      				<option value = "Oct">October</option>
+      				<option value = "Nov">November</option>
+      				<option value = "Dec">December</option>      				
+      			</select>
+      			<input type = "text" id = "startyear" maxlength="4" placeholder = "Year">
+      			-
+      			<select id ="end">
+      				<option value = "Jan">January</option>
+      				<option value = "Feb">February</option>
+      				<option value = "Mar">March</option>
+      				<option value = "Apr">April</option>
+      				<option value = "May">May</option>
+      				<option value = "Jun">June</option>
+      				<option value = "Jul">July</option>
+      				<option value = "Aug">August</option>
+      				<option value = "Sep">September</option>
+      				<option value = "Oct">October</option>
+      				<option value = "Nov">November</option>
+      				<option value = "Dec">December</option>      				
+      			</select>
+      			<input type = "text" id = "endyear" maxlength="4" placeholder = "Year">
+      		</div>
+    		<div class="form-group">
+      			<label for="Description">Description</label>
+				<textarea class="form-control" rows="4" style="min-width: 100%" id="description"></textarea>
+    		</div>
+    		<div>
+	    		<button type="button" class="btn btn-primary" onclick="saveexp();">Save</button>
+	    		<button type="button" class="btn btn-default" onclick="cancelexp();">Cancel</button>
+	    	</div>
+  		</form>
+	</div>
+	<div class="row">
+	    <div class="col-sm-2" style="background-color:lavender;"><h3>Education</h3></div>
+	    <div class="col-sm-1" style="background-color:lavenderblush;"></div>
+	    <button type="button" class="btn btn-primary" onclick = "showform1();">Add Education</button>
+	</div>
+	<div id = "eduform" style = "visibility:hidden">
+		<form role="form">
+			<div class="form-group">
+	      		<label for="sname">School</label>
+	      		<input type="text" class="form-control" id="sname">
+   		 	</div>
+    		<div class="form-group">
+      			<label for="dates">Dates Attended</label>
+      			<br>
+      			<input type = "text" id = "startyear1" maxlength="4" placeholder = "Year">
+      			-
+      			<input type = "text" id = "endyear1" maxlength="4" placeholder = "Year">
+    		</div>
+    		<label for="Degree">Degree</label>
+    		<br>
+    		<select id ="degree">
+    			<option value="High School">High School</option>
+    			<option value="Pre-University">Pre-University</option>
+    			<option value="Bachelor's Degree">Bachelor's Degree</option>
+    			<option value="Master's Degree">Master's Degree</option>
+    		</select>
+    		<br>
+    		<div class="form-group">
+	      		<label for="Field Of Study">Field of Study</label>
+	      		<input type="text" class="form-control" id="fos">
+   		 	</div>
+   		 	<div class="form-group">
+   		 		<label for="Grade">CGPA/Percentage</label>
+	      		<input type="text" class="form-control" id="grade">
+   		 	</div>
+   		 	<div>
+	    		<button type="button" class="btn btn-primary" onclick="saveexp1();">Save</button>
+	    		<button type="button" class="btn btn-default" onclick="cancelexp1();">Cancel</button>
+	    	</div>
+  		</form>
+	</div>
+	<div class="row">
+		<div class="col-sm-2" style="background-color:lavender;"><h3>Projects</h3></div>
+	    <div class="col-sm-1" style="background-color:lavenderblush;"></div>
+	    <button type="button" class="btn btn-primary" onclick = "showform2();">Add Project</button>
+	</div>
+	<div id = "projform" style = "visibility:hidden">
+		<form role="form">
+			<div class="form-group">
+	      		<label for="pname">Name</label>
+	      		<input type="text" class="form-control" id="pname">
+   		 	</div>
+   		 	<div class="form-group">
+      			<label for="date">Date</label>
+      			<br>
+      			<select id="month">
+      				<option value = "Jan">January</option>
+      				<option value = "Feb">February</option>
+      				<option value = "Mar">March</option>
+      				<option value = "Apr">April</option>
+      				<option value = "May">May</option>
+      				<option value = "Jun">June</option>
+      				<option value = "Jul">July</option>
+      				<option value = "Aug">August</option>
+      				<option value = "Sep">September</option>
+      				<option value = "Oct">October</option>
+      				<option value = "Nov">November</option>
+      				<option value = "Dec">December</option>      				
+      			</select>
+      			<input type = "text" id = "year" maxlength="4" placeholder = "Year">
+      		</div>
+      		<div class="form-group">
+	      		<label for="purl">Project URL</label>
+	      		<input type="text" class="form-control" id="purl">
+   		 	</div>
+   		 	<div class="form-group">
+	      		<label for="desc">Description</label>
+	      		<br>
+				<textarea class="form-control" rows="4" style="min-width: 100%" id="pdesc"></textarea>
+   		 	</div>
+   		 	<div>
+	    		<button type="button" class="btn btn-primary" onclick="saveexp2();">Save</button>
+	    		<button type="button" class="btn btn-default" onclick="cancelexp2();">Cancel</button>
+	    	</div>
+  		</form>
+	</div>
+</body>
+</html>
