@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Just The Job</title>
     {% load staticfiles %}
     <!-- Bootstrap Core CSS -->
@@ -21,10 +20,11 @@
     <link href="{{STATIC_URL}}font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-	{% load staticfiles %}
+    {% load staticfiles %}
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
@@ -107,20 +107,21 @@ improve resume and hence increase chance of selection.
         <div class="signin-section">
             <div class="container" action = "" method = "post">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <form action="" method="post">
-						{% if next %}
-						<input type="hidden" name="next" value="{{ next }}" />
-						{% endif %}
-						username:
-						<input type="text" name="username" value="{{ username}}" /><br />
-						password:
-						<input type="password" name="password" value="" /><br />
-
-						<input type="submit" value="Log In" />
-					</form>
-				    <form action="/register" method="get">
-				        <input type="submit" value="Register"/>
-				    </form>
+                    <div class="wrapper">
+                        <form class="form-signin" action = "" method = "post">   
+                            {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}" />
+                            {% endif %}    
+                          <h2 class="form-signin-heading">Please login</h2>
+                          <input type="text" class="form-control" name="username" placeholder="Username" required="" value="{{ username}}" />
+                          <input type="password" class="form-control" name="password" placeholder="Password" required="" value =""/>     
+                          
+                          <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
+                        </form>
+                        <form action="/register" method="get">
+                            <button type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
+                        </form>
+                      </div>
                 </div>
             </div>
         </div>
@@ -132,11 +133,11 @@ improve resume and hence increase chance of selection.
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>Contact Us</h2>
                 <p>
-                	Kai : Kai@lava.com
-                	<br>
-                	Gb : Gb@fa.com
-                	<br> 
-                	;_;
+                    Kai : Kai@lava.com
+                    <br>
+                    Gb : Gb@fa.com
+                    <br> 
+                    ;_;
             </div>
         </div>
     </section>
