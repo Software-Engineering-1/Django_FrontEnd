@@ -5,6 +5,8 @@ from django.contrib import admin
 from authentication import views
 urlpatterns = [
     #The pages associated with chatbot
-    url(r'^$',views.login_user,name='Login'),
+    url(r'^$',views.homepage,name='Homepage'),
+    url(r'^authentication/login',views.login_user,name="login"),
     url(r'^$',views.register,name='Register'),
+    url(r'^auth/fp',views.fp,name="fp"),
 ]

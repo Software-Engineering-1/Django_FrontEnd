@@ -14,6 +14,6 @@ def personalinfo(request):
         #return redirect(login_user)
         pass
     #return HttpResponse("Test page. Yet to be designed",status=200)
-    template = loader.get_template('chatbot/chat1.html')
+    template = loader.get_template('chatbot/ChatBot1.html')
     context={}
     return HttpResponse(template.render(context,request),status=200)
