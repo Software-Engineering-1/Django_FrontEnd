@@ -2,7 +2,7 @@ from django.shortcuts import render     #Required to render our HTML (As in repl
 from django.http import HttpResponse,HttpResponseRedirect   #Required to send HTTPResponse. A View should return one of these
 # Create your views here.
 from django.template import loader      #Required for loading our html
-from django.views.decorators.csrf import csrf_exempt    #Needed . Don't exactly know why yet
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User             #Need the default user model.
 from django.contrib.auth import authenticate, login     #Needed to work with default user model.
 from django.shortcuts import redirect                   #Needed to redirect
@@ -13,41 +13,57 @@ from .models import UserContact
 
 
 
+
+
+"""
+    This view is used to render the homepage.
+    maps to authentication/index.html if no user is logged in.
+    Loads their profile if they are already logged in
+"""
 @csrf_exempt
 def homepage(request):
-    if( request.session.get('user',None)):
-        return redirect(mainView)
-    if(request.method=="POST"):
-        data=request.POST
+    if( request.session.get('user',None)):  #Check session object for user
+        return redirect(mainView)           #exists, so redirect to profile
+    if(request.method=="POST"):             #This post is used to handle feedback on website
+        data=request.POST                   #Get the submitted fields like name,email and their message
         name=data['name']
         email=data['email']
         message=data['message']
         u=UserContact(name=name,email=email,message=message)
-        u.save()
-        template = loader.get_template('authentication/index1.html')
-        context={'message':1}
-        return HttpResponse(template.render(context,request))
+        u.save() #Save a 'UserContact' object to the database. The admin can then see feedback and respond with an email
+        template = loader.get_template('authentication/index1.html')    #load the page
+        context={'message':1}           #Set message to 1. Alert informing that feedback was submitted if this is 1
+        return HttpResponse(template.render(context,request))   #render the page
 
     template = loader.get_template('authentication/index1.html')    #Load the page
-    context={'message':0}                                         #No error. THis is used when he enters bad data in forms
-    return HttpResponse(template.render(context,request))
+    context={'message':0}               #Used for alerting on feedback submission
+    return HttpResponse(template.render(context,request))       #render the page
 
+
+
+
+"""
+    This is the view used to handle the authentication page. maps to authentication/login.html template
+    Upon login form submission, logs the user in if the credentials are correct. Alerts an error otherwise
+    Upon register form submission, registers a new user to the database.Alerts an error if username is taken
+
+"""
 
 @csrf_exempt
 def login_user(request):
     if(request.method=="POST"): #Means it is a post request
         data=request.POST       #Obtain data which was sent in the body. This is a dictionary
-        if(data['title'])=='LOGIN': #I've 2 forms on same page.I've given diff values to same key title to distinguish
+        if(data['title'])=='LOGIN': #I've 2 forms on same page.I've given different values to same key title to distinguish
             username=data['username']
             password=data['password']
             user=authenticate(username=username,password=password)  #Check if the username-password is valid
             if(user is not None):  #Yes. It is valid. So log the user in
                 login(request,user) #Login . From this point. Can use request.user to get the user
-                request.session['user']=user.username
+                request.session['user']=user.username   #This is for remembering user across sessions
                 return redirect(personalinfo)   #Important. Use this for redirecting him to different page after login
             else:   #He has entered wrong username/password. Load the login page itself again.
                 template = loader.get_template('authentication/login.html')
-                context={'error':2} #I'm doing {{ if error==2}} alert("Wrong username/passsword") in HTML.So I need this
+                context={'error':2} #Show a js alert indicating wrong username.password for 2
                 return HttpResponse(template.render(context,request))   #Show him the login page again
         elif(data['title'])=='REGISTER':    #The title is for register. Which means submit on register was clicked
             username=data['username']
@@ -58,7 +74,7 @@ def login_user(request):
             except Exception as e:
                 print(e)
                 template = loader.get_template('authentication/login.html')
-                context={'error':1} #I'm doing {{ if error==1}} alert("Wrong username taken")
+                context={'error':1} #Show js alert indicating username taken for 1
                 return HttpResponse(template.render(context,request))   #Render back the login page
             else:   #No exception. User was created sucessfully
                 u.save()    #Important. Save to database
@@ -68,8 +84,8 @@ def login_user(request):
                 return redirect(personalinfo)   #redirect him to the next page you intend to show
     else:   #GET request. Means he has loaded this url from browser. Show him our page
         template = loader.get_template('authentication/login.html')    #Load the page
-        context={'error':0}                                         #No error. THis is used when he enters bad data in forms
-        return HttpResponse(template.render(context,request))       #Render the HTML page
+        context={'error':0}                                         #No error needs to be shown
+        return HttpResponse(template.render(context,request))       #Render the HTML page given the template and context
 
 @csrf_exempt
 def register(request):
